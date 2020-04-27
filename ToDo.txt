@@ -1,0 +1,5 @@
+scale the global flag properly - use another flag as template
+
+.list: send the list of country codes as a direct message.
+
+add the ability to plot multiple countries' cases in the same graph
