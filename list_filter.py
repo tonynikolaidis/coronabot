@@ -45,13 +45,13 @@ def get_stats(data, country_list=None):
         stats.append(recovered)
 
         if new_cases != 0:
-            cases = format(int(cases[0]), ",d") + " (+" + format(int(new_cases[0]), ",d") + ")"
+            cases = f'**{format(int(cases[0]), ",d")}**' + " (+" + format(int(new_cases[0]), ",d") + ")"
 
         if new_deaths != 0:
-            deaths = format(int(deaths[0]), ",d") + " (+" + format(int(new_deaths[0]), ",d") + ")"
+            deaths = f'**{format(int(deaths[0]), ",d")}**' + " (+" + format(int(new_deaths[0]), ",d") + ")"
 
         if new_recovered != 0:
-            recovered = format(int(recovered[0]), ",d") + " (+" + format(int(new_recovered[0]), ",d") + ")"
+            recovered = f'**{format(int(recovered[0]), ",d")}**' + " (+" + format(int(new_recovered[0]), ",d") + ")"
 
     else:
         for i in range(0, len(country_list)):
@@ -61,6 +61,16 @@ def get_stats(data, country_list=None):
                 country_list[i] = country_list[i].upper()
 
         # print(country_list)
+
+        country_list = ["GB" if x == "UK" else x for x in country_list]
+
+        country_list = ["korea-south" if x == "south-korea" else x for x in country_list]
+        country_list = ["korea-south" if x == "korea" else x for x in country_list]
+
+        country_list = ["korea-north" if x == "north-korea" else x for x in country_list]
+
+        country_list = ["US" if x == "usa" else x for x in country_list]
+        country_list = ["US" if x == "united-states-of-america" else x for x in country_list]
 
         slug = list(filter(lambda change_name: change_name["Slug"] in country_list, data["Countries"]))
         for i in range(0, len(slug)):
@@ -94,7 +104,8 @@ def get_stats(data, country_list=None):
         #         country_list[i] = country_list[i].upper()
 
         # lst = list(filter(lambda get_countries: get_countries["CountryCode"] in country_list, data["Countries"]))
-        lst = slug + code
+        new_lst = slug + code
+        lst = sorted(new_lst, key=lambda item_num: item_num["Country"])
         # print(lst)
 
         for i in range(0, len(lst)):
@@ -115,19 +126,29 @@ def get_stats(data, country_list=None):
             stats.append(lst[i]["TotalRecovered"])
 
             if new_cases[i] != 0:
-                cases[i] = format(int(cases[i]), ",d") + " (+" + format(int(new_cases[i]), ",d") + ")"
+                cases[i] = f'**{format(int(cases[i]), ",d")}**' + " (+" + format(int(new_cases[i]), ",d") + ")"
+            else:
+                cases[i] = f'**{format(int(cases[i]), ",d")}**'
 
             if new_deaths[i] != 0:
-                deaths[i] = format(int(deaths[i]), ",d") + " (+" + format(int(new_deaths[i]), ",d") + ")"
+                deaths[i] = f'**{format(int(deaths[i]), ",d")}**' + " (+" + format(int(new_deaths[i]), ",d") + ")"
+            else:
+                deaths[i] = f'**{format(int(deaths[i]), ",d")}**'
 
             if new_recovered[i] != 0:
-                recovered[i] = format(int(recovered[i]), ",d") + " (+" + format(int(new_recovered[i]), ",d") + ")"
+                recovered[i] = f'**{format(int(recovered[i]), ",d")}**' + " (+" + format(int(new_recovered[i]), ",d") + ")"
+            else:
+                recovered[i] = f'**{format(int(recovered[i]), ",d")}**'
 
     return cases, deaths, recovered, names, codes, error_lst, stats
 
 
 # # the_list = ["hello there", "united-kingdom", "germany", "youtube", "switzerland"]
-# # the_list = ["gr", "United-Kingdom", "netherlands", "youtube"]
+# the_list = ["gr", "United-Kingdom", "netherlands", "youtube"]
 # the_list = ()
 # new_list = get_stats(data_sum, the_list)
 # print(new_list)
+#
+# for i in range(0, len(new_list[0])):
+#     k = i+1
+#     print(new_list[6][3*k-3])

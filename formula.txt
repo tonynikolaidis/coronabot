@@ -1,5 +1,0 @@
-x cases -> total pop
-? cases -> million pop
-
-
-(x*1 mil)/(total pop)

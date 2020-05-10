@@ -8,7 +8,7 @@
     "Population": 1366417754
   },
   {
-    "Country": "United States",
+    "Country": "United States of America",
     "Population": 329064917
   },
   {
@@ -60,7 +60,7 @@
     "Population": 96462106
   },
   {
-    "Country": "DR Congo",
+    "Country": "Congo (Kinshasa)",
     "Population": 86790567
   },
   {
@@ -108,7 +108,7 @@
     "Population": 52573973
   },
   {
-    "Country": "South Korea",
+    "Country": "Korea (South)",
     "Population": 51225308
   },
   {
@@ -204,7 +204,7 @@
     "Population": 26969307
   },
   {
-    "Country": "North Korea",
+    "Country": "Korea (North)",
     "Population": 25666161
   },
   {
@@ -412,7 +412,7 @@
     "Population": 7813215
   },
   {
-    "Country": "Hong Kong",
+    "Country": "Hong Kong, SAR China",
     "Population": 7436154
   },
   {
@@ -472,7 +472,7 @@
     "Population": 5378857
   },
   {
-    "Country": "Congo",
+    "Country": "Congo (Brazzaville)",
     "Population": 5380508
   },
   {
@@ -620,7 +620,7 @@
     "Population": 1355986
   },
   {
-    "Country": "East Timor",
+    "Country": "Timor-Leste",
     "Population": 1293119
   },
   {
@@ -744,7 +744,7 @@
     "Population": 266150
   },
   {
-    "Country": "São Tomé and Príncipe",
+    "Country": "Sao Tome and Principe",
     "Population": 215056
   },
   {
@@ -772,7 +772,7 @@
     "Population": 117606
   },
   {
-    "Country": "F.S. Micronesia",
+    "Country": "Micronesia, Federated States of",
     "Population": 113815
   },
   {
@@ -784,7 +784,7 @@
     "Population": 110940
   },
   {
-    "Country": "Saint Vincent and the Grenadines",
+    "Country": "Saint Vincent and Grenadines",
     "Population": 110589
   },
   {
@@ -892,7 +892,7 @@
     "Population": 14869
   },
   {
-    "Country": "Wallis and Futuna",
+    "Country": "Wallis and Futuna Islands",
     "Population": 11432
   },
   {
@@ -904,7 +904,7 @@
     "Population": 10756
   },
   {
-    "Country": "Saint Helena, Ascension and Tristan da Cunha",
+    "Country": "Saint Helena",
     "Population": 6059
   },
   {
@@ -916,7 +916,7 @@
     "Population": 4989
   },
   {
-    "Country": "Falkland Islands",
+    "Country": "Falkland Islands (Malvinas)",
     "Population": 3377
   },
   {
@@ -928,7 +928,7 @@
     "Population": 1340
   },
   {
-    "Country": "Vatican City",
+    "Country": "Holy See (Vatican City State)",
     "Population": 799
   }
 ]

@@ -15,7 +15,7 @@ def get_flag(url, dest_file):
         f.close()
 
 
-def compile_flags(country_list):
+def compile_flags(country_list, filename):
     compiled_flags = Image.new("RGB", (60, 40))
 
     left = 2
@@ -25,36 +25,36 @@ def compile_flags(country_list):
 
     x = 0
 
-    limit = 10
+    limit = 6
 
     for i in range(0, len(country_list)):
 
         if i > limit:
             break
 
-        if country_list[i] == "ch":
+        if country_list[i].lower() == "ch":
             img = Image.open("./switzerland.png")
             img_new = img.crop((12, top, (64-12), bottom))
             compiled_flags.paste(img_new, (x, 0))
-            print("Switzerland is in the list.")
+            # print("Switzerland is in the list.")
 
         else:
-            get_flag(f"https://www.countryflags.io/{country_list[i]}/flat/64.png", f"flag{i}.png")
+            get_flag(f"https://www.countryflags.io/{country_list[i].lower()}/flat/64.png", f"{filename}flag{i}.png")
 
-            img = Image.open(f"./flag{i}.png")
+            img = Image.open(f"./{filename}flag{i}.png")
             img_new = img.crop((left, top, right, bottom))
             compiled_flags.paste(img_new, (x, 0))
-            os.remove(f"./flag{i}.png")
+            os.remove(f"./{filename}flag{i}.png")
 
         if len(country_list) <= limit:
             x += round(60 / len(country_list))
         else:
             x += round(60 / limit)
 
-    compiled_flags.save("compiled_flags.png")
-    compiled_flags.show()
-    print(len(country_list))
+    compiled_flags.save(f"{filename}compiled_flags.png")
+    # compiled_flags.show()
+    # print(len(country_list))
 
 
-# compile_flags(["gr", "gb"])
+# compile_flags(["gr", "gb", "CH"])
 # compile_flags(["gr", "gb", "nl", "de", "fr", "cn", "ca", "us", "au", "se", "qa", "fj", "lu", "nf", "it"])
