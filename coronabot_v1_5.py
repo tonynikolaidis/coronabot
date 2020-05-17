@@ -83,12 +83,11 @@ async def on_guild_join(guild):
     general = find(lambda x: x.name == 'general', guild.text_channels)
     if general and general.permissions_for(guild.me).send_messages:
         embed = discord.Embed(
-            title="Thanks for inviting me!",
-            description="Use `.help` to get started.",
+            description="• Use `.stats <country-code/name>` to get started, e.g. `.stats us` to get statistics for the USA.\n\n• To see more options use `.help`.\n\n• Use `.info` to find out more about Coronabot.",
             timestamp=datetime.utcnow(),
             colour=discord.Color.blue()
         )
-        embed.set_author(name="Coronabot", icon_url="https://i.imgur.com/wE5DmmZ.png")
+        embed.set_author(name="Thanks for inviting me!", icon_url="https://i.imgur.com/wE5DmmZ.png")
         embed.set_footer(text="Created by Tony4k#5870")
         await general.send(embed=embed)
 
@@ -1184,7 +1183,7 @@ async def help(ctx):
                     value="Sends a direct message to the author with the list of available **country codes**.",
                     inline=False)
     embed.add_field(name="`.stats <country-name(s)/code(s)>` (up to 6 countries)",
-                    value="Returns the current COVID-19 **statistics** of the specified country.\n⮡ Entering **multiple** countries (up to 6) will show a graph that compares **cases**/**deaths** per 1 million population.\n⮡ If no countries are given, then the bot will return the **global** COVID-19 statistics.",
+                    value="Returns the current COVID-19 **statistics** of the specified country.\n• Entering **multiple** countries (up to 6) will show a graph that compares **cases**/**deaths** per 1 million population.\n• If no countries are given, then the bot will return the **global** COVID-19 statistics.",
                     inline=False)
     embed.add_field(
         name="Reactions",
