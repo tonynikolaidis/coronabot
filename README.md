@@ -29,3 +29,15 @@ You need to create a file named `config.json` that contains your discord bot tok
   "Token": "<your_token>"
 }
 ```
+
+To start the bot, run `coronabot_v1_5.py`.
+
+You can ignore the *.sh files as these are used for our own deployment.
+
+## Minimum requirements
+- Python version: 3.7
+
+## Data sources
+- COVID-19 data: Johns Hopkins CSSE [API](https://covid19api.com/) | [Github](https://github.com/CSSEGISandData/COVID-19)
+- Country flags: [Country flags API](https://www.countryflags.io/)
+- Population per country: [Wikipedia](https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population)
