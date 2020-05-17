@@ -5,6 +5,7 @@ Alternatively, you can compare how each country is fairing by entering two or mo
 
 Available commands:
 
+ - `.stats`: provides the global statistics.
  - `.stats <country-name/code>`: provides the statistics for a single country. Example: `.stats us`
  - `.stats <country-1> <country-2> ... <country-6>`: compares cases or deaths per million population of up to six countries. Example: `.stats uk us es`
  - `.list`: replies with a direct message listing all available countries with their codes.
