@@ -1174,25 +1174,81 @@ async def help(ctx):
     embed = discord.Embed(
         color=discord.Color.blue()
     )
+
+    embed.set_author(name="Coronabot | Cheat-sheet", icon_url="https://i.imgur.com/wE5DmmZ.png")
+
+    embed.add_field(name="`.stats`",
+                    value="Provides the **global** statistics.",
+                    inline=False)
+    embed.add_field(name="`.stats <country-name/code>`",
+                    value="Provides the statistics for a single country. Example: `.stats us`",
+                    inline=False)
+    embed.add_field(name="`.stats <country-1> <country-2> ... <country-6>` (up to 6 countries)",
+                    value="Compares cases or deaths per million population of up to six countries. Example: `.stats uk us es`",
+                    inline=False)
+    embed.add_field(name="`.list`",
+                    value="Replies with a direct message listing all available countries with their codes.",
+                    inline=False)
+    embed.add_field(name="`.help`",
+                    value="Shows this **cheat-sheet**.",
+                    inline=False)
+    embed.add_field(name="`.info`",
+                    value="Replies with information about the bot.",
+                    inline=False)
+    embed.add_field(name="`<country-name/code>`",
+                    value="Country codes follow the ISO-3166 (2 letter codes) and country names with two or more parts must use a dash (-) instead of a space, e.g. New Zealand → new-zealand.",
+                    inline=False)
+    embed.add_field(
+        name="Reactions",
+        value=f"{reactions[0]} → **Deletes** the bot's message.\n\n{reactions[1]} → Sends a **linear** graph.\n\n{reactions[2]} → Sends a **logarithmic** graph.\n\n{reactions[3]} → Sends a **bar** chart.\n\n{reactions[4]} → Changes data to **Cases**/1M population (Applicable only when comparing countries).\n\n{reactions[5]} → Changes data to **Deaths**/1M population (Applicable only when comparing countries)."
+    )
+
+    # embed.set_footer(
+    #     text="NOTE: Country names with two or more parts must be connected with a dash (-). (e.g. united-kingdom, united-states, etc.)"
+    # )
+
+    msg = await ctx.send(embed=embed)
+
+    msg_info.append(
+        {
+            "MessageID": msg.id,
+            "MessageObj": msg,
+            "MessageAuthor": ctx.author.id,
+            "Context": ctx,
+            "Timestamp": timestamp
+        }
+    )
+
+    await msg.add_reaction(reactions[0])
+
+
+@bot.command()
+async def info(ctx):
+    remove_messages()
+
+    today = datetime.today()
+    timestamp = today.timestamp()
+
+    embed = discord.Embed(
+        color=discord.Color.blue()
+    )
     embed.set_author(name="Coronabot | Cheat-sheet", icon_url="https://i.imgur.com/wE5DmmZ.png")
 
     embed.set_thumbnail(url="https://i.imgur.com/LpTun0d.png")
 
-    embed.add_field(name="`.help`", value="Shows this **cheat-sheet**.", inline=False)
-    embed.add_field(name="`.list`",
-                    value="Sends a direct message to the author with the list of available **country codes**.",
+    embed.add_field(name="Author", value="Coronabot was created by Tony4k#5870.", inline=False)
+    embed.add_field(name="Github repository",
+                    value="[www.github.com/anthonynikolaidis/coronabot](https://github.com/anthonynikolaidis/coronabot)",
                     inline=False)
-    embed.add_field(name="`.stats <country-name(s)/code(s)>` (up to 6 countries)",
-                    value="Returns the current COVID-19 **statistics** of the specified country.\n• Entering **multiple** countries (up to 6) will show a graph that compares **cases**/**deaths** per 1 million population.\n• If no countries are given, then the bot will return the **global** COVID-19 statistics.",
+    embed.add_field(name="Support server",
+                    value="[https://discord.gg/nFnSHYs](https://discord.gg/nFnSHYs)",
                     inline=False)
-    embed.add_field(
-        name="Reactions",
-        value=f"{reactions[0]} → **Deletes** the bot's message.\n\n{reactions[1]} → Sends a **linear** graph.\n\n{reactions[2]} → Sends a **logarithmic** graph.\n\n{reactions[3]} → Sends a **bar** chart.\n\n{reactions[4]} → Changes data to **Cases**/1M population.\n\n{reactions[5]} → Changes data to **Deaths**/1M population."
-    )
-
-    embed.set_footer(
-        text="NOTE: Country names with two or more parts must be connected with a dash (-). (e.g. united-kingdom, united-states, etc.)"
-    )
+    embed.add_field(name="Data sources",
+                    value="• COVID-19 data: Johns Hopkins CSSE [API](https://covid19api.com/) | [Github](https://github.com/CSSEGISandData/COVID-19)\n• Country flags: [Country flags API](https://www.countryflags.io/)\n• Population per country: [Wikipedia](https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population)",
+                    inline=False)
+    embed.add_field(name="Website",
+                    value="[https://top.gg/bot/700388677133795430](https://top.gg/bot/700388677133795430)",
+                    inline=False)
 
     msg = await ctx.send(embed=embed)
 
