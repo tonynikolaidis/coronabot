@@ -1,12 +1,3 @@
-# import requests
-#
-# # https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search
-#
-# url_sum = "https://api.covid19api.com/summary"
-# response_sum = requests.get(url_sum)
-# data_sum = response_sum.json()
-
-
 def get_stats(data, country_list=None):
 
     country_list = list(country_list)
@@ -60,8 +51,6 @@ def get_stats(data, country_list=None):
             else:
                 country_list[i] = country_list[i].upper()
 
-        # print(country_list)
-
         country_list = ["GB" if x == "UK" else x for x in country_list]
 
         country_list = ["korea-south" if x == "south-korea" else x for x in country_list]
@@ -76,37 +65,21 @@ def get_stats(data, country_list=None):
         for i in range(0, len(slug)):
             country_list_codes.append(slug[i]["CountryCode"])
             country_list_slugs.append(slug[i]["Slug"])
-        # print(country_list_codes, country_list_slugs)
 
         code = list(filter(lambda change_name: change_name["CountryCode"] in country_list, data["Countries"]))
         for i in range(0, len(code)):
             country_list_codes.append(code[i]["CountryCode"])
             country_list_slugs.append(code[i]["Slug"])
-        # print(country_list_codes, country_list_slugs)
-
-        # print(slug)
-        # print(code)
 
         for i in range(0, len(country_list)):
             if str.upper(country_list[i]) not in country_list_codes and str.lower(country_list[i]) not in country_list_slugs:
-                # print(str.upper(country_list[i]))
                 error_lst.append(country_list[i])
-
-        # print(error_lst)
 
         for i in range(0, len(error_lst)):
             country_list.remove(error_lst[i])
 
-        # for i in range(0, len(slug)):
-        #     if len(country_list[i]) > 2:
-        #         country_list[i] = slug[i]["CountryCode"]
-        #     else:
-        #         country_list[i] = country_list[i].upper()
-
-        # lst = list(filter(lambda get_countries: get_countries["CountryCode"] in country_list, data["Countries"]))
         new_lst = slug + code
         lst = sorted(new_lst, key=lambda item_num: item_num["Country"])
-        # print(lst)
 
         for i in range(0, len(lst)):
             cases.append(lst[i]["TotalConfirmed"])
@@ -141,14 +114,3 @@ def get_stats(data, country_list=None):
                 recovered[i] = f'**{format(int(recovered[i]), ",d")}**'
 
     return cases, deaths, recovered, names, codes, error_lst, stats
-
-
-# # the_list = ["hello there", "united-kingdom", "germany", "youtube", "switzerland"]
-# the_list = ["gr", "United-Kingdom", "netherlands", "youtube"]
-# the_list = ()
-# new_list = get_stats(data_sum, the_list)
-# print(new_list)
-#
-# for i in range(0, len(new_list[0])):
-#     k = i+1
-#     print(new_list[6][3*k-3])

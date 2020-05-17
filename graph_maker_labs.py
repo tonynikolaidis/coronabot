@@ -1,11 +1,10 @@
-import requests
-import json
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+import requests
 from matplotlib.font_manager import FontProperties
-import numpy as np
-from per_mil_pop_calc import *
 from millify import millify
+
+from per_mil_pop_calc import *
 
 
 def date_formatter(number):
@@ -60,9 +59,10 @@ font_size = 10
 legend_size = 10
 marker_size = 5  # 7
 grid_opacity = 0.5
-grid_line_widtch = 0.75
+grid_line_width = 0.75
 
 country_limit = 6
+y_limit = 1
 
 
 def graph_maker(graph_type, country_code, filename):
@@ -70,7 +70,6 @@ def graph_maker(graph_type, country_code, filename):
     response_cases = requests.get(url_cases)
     data_cases = response_cases.json()
 
-    # url_deaths = f"https://api.thevirustracker.com/free-api?countryTimeline={country_code}"
     url_deaths = f"https://api.covid19api.com/total/country/{country_code}/status/deaths"
     response_deaths = requests.get(url_deaths)
     data_deaths = response_deaths.json()
@@ -93,33 +92,6 @@ def graph_maker(graph_type, country_code, filename):
         y.append(data_cases[i]["Cases"])
         y1.append(data_deaths[i]["Cases"])
         # y2.append(data_recovered[i]["Cases"])
-
-    # key_list = []
-    #
-    # length = len(data_deaths["timelineitems"])
-    # for i in range(0, length):
-    #     key_list.append(get_keys(data_deaths["timelineitems"][i]))
-    #
-    # k = key_list[0]
-    #
-    # for i in range(0, len(k) - 1):
-    #     y1.append(data_deaths["timelineitems"][0][k[i]]["total_deaths"])
-    #
-    # x_len = len(x)
-    # y1_len = len(y1)
-    #
-    # if y1_len < x_len:
-    #     diff = x_len - y1_len
-    #     for i in range(0, diff):
-    #         y1.insert(0, 0)
-    #
-    # elif y1_len == x_len:
-    #     pass
-    #
-    # else:
-    #     diff = y1_len - x_len
-    #     for i in range(0, diff):
-    #         y1.pop(0)
 
     # https://www.geeksforgeeks.org/graph-plotting-in-python-set-1/
     # https://towardsdatascience.com/customizing-plots-with-python-matplotlib-bcf02691931f
@@ -160,7 +132,6 @@ def graph_maker(graph_type, country_code, filename):
 
     # https://matplotlib.org/3.1.1/gallery/ticks_and_spines/tick-locators.html
 
-    # ax.xaxis.set_major_locator(ticker.LinearLocator(10))
     ax.xaxis.set_major_locator(ticker.IndexLocator(base=20, offset=2))
 
     plt.xticks(fontsize=font_size)
@@ -175,7 +146,7 @@ def graph_maker(graph_type, country_code, filename):
     ax.grid(which="both",
             axis="y",
             color="grey",
-            linewidth=grid_line_widtch,
+            linewidth=grid_line_width,
             alpha=grid_opacity
             )
 
@@ -197,7 +168,7 @@ def graph_maker(graph_type, country_code, filename):
     elif graph_type == "log":
         ax.set_title(f"Logarithmic graph", pad=title_pad, fontproperties=title_font)
         plt.yscale("log")
-        plt.ylim(bottom=10)
+        plt.ylim(bottom=y_limit)
         plt.minorticks_off()
 
     ax.yaxis.set_major_formatter(ticker.FuncFormatter(format_values))
@@ -206,9 +177,6 @@ def graph_maker(graph_type, country_code, filename):
     # plt.show()
     fig.clear()
     plt.close(fig)
-
-
-# graph_maker("linear", "gb", "mynameisjeff")
 
 
 def graph_maker_bar(active, deaths, recovered, filename):
@@ -242,7 +210,7 @@ def graph_maker_bar(active, deaths, recovered, filename):
     ax.grid(which="both",
             axis="y",
             color="grey",
-            linewidth=grid_line_widtch,
+            linewidth=grid_line_width,
             alpha=grid_opacity
             )
 
@@ -254,23 +222,16 @@ def graph_maker_bar(active, deaths, recovered, filename):
 
     ax.set_title(f"Bar chart", pad=title_pad, fontproperties=title_font)
 
-    # ax.legend(["Total", "Deaths"], prop={"size": legend_size}, fancybox=True, facecolor="0.25")
-
     plt.savefig(f"{filename}.png", transparent=True)
     # plt.show()
     fig.clear()
     plt.close(fig)
 
 
-# graph_maker_bar(100, 50, 20)
-
-
 def graph_maker_list(country_code_list, filename, cases_type="confirmed", graph_type="linear"):
     country_code_list_upper = []
 
     x = []
-
-    # colour_list = ["#ffa502", "#A3CB38", "#1289A7", "#D980FA", "#B53471", "#000000"]
 
     colour_list = ["#F44336", "#4CAF50", "#3F51B5", "#9C27B0", "#03A9F4", "#CDDC39"]
 
@@ -281,8 +242,6 @@ def graph_maker_list(country_code_list, filename, cases_type="confirmed", graph_
         fig, ax = plt.subplots(dpi=150)
 
         y = []
-
-        # --- Loop this part
 
         for u in range(0, len(country_code_list)):
 
@@ -316,8 +275,6 @@ def graph_maker_list(country_code_list, filename, cases_type="confirmed", graph_
 
             ax.fill_between(x, 0, y[u], facecolor=colour_list[u], alpha=0.25)
 
-        # ---
-
         title_font = FontProperties()
         title_font.set_family("sans-serif")
         title_font.set_file("./Whitney-Font/whitney-semibold.otf")
@@ -331,16 +288,16 @@ def graph_maker_list(country_code_list, filename, cases_type="confirmed", graph_
         elif graph_type == "log":
             ax.set_title(f"Logarithmic graph", pad=title_pad, fontproperties=title_font)
             plt.yscale("log")
-            plt.ylim(bottom=10)
+            plt.ylim(bottom=y_limit)
             plt.minorticks_off()
 
-        ax.xaxis.set_major_locator(ticker.LinearLocator(10))
         ax.yaxis.set_major_formatter(ticker.FuncFormatter(format_values))
 
         plt.xticks(fontsize=font_size)
         plt.yticks(fontsize=font_size)
 
-        fig.autofmt_xdate(rotation=45, ha="center")
+        ax.xaxis.set_major_locator(ticker.IndexLocator(base=20, offset=2))
+        fig.autofmt_xdate(rotation=0, ha="center")
 
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
@@ -349,7 +306,7 @@ def graph_maker_list(country_code_list, filename, cases_type="confirmed", graph_
         ax.grid(which="both",
                 axis="y",
                 color="grey",
-                linewidth=grid_line_widtch,
+                linewidth=grid_line_width,
                 alpha=grid_opacity
                 )
 
@@ -359,9 +316,6 @@ def graph_maker_list(country_code_list, filename, cases_type="confirmed", graph_
         # plt.show()
         fig.clear()
         plt.close(fig)
-
-
-# graph_maker_list(["GR", "GB", "NL", "SE", "CH"])
 
 
 def graph_maker_list_bar(numbers, country_codes, filename):
@@ -395,7 +349,7 @@ def graph_maker_list_bar(numbers, country_codes, filename):
     ax.grid(which="both",
             axis="y",
             color="grey",
-            linewidth=grid_line_widtch,
+            linewidth=grid_line_width,
             alpha=grid_opacity
             )
 
@@ -407,12 +361,7 @@ def graph_maker_list_bar(numbers, country_codes, filename):
 
     ax.set_title(f"Bar chart", pad=title_pad, fontproperties=title_font)
 
-    # ax.legend(["Total", "Deaths"], prop={"size": legend_size}, fancybox=True, facecolor="0.25")
-
     plt.savefig(f"{filename}.png", transparent=True)
     # plt.show()
     fig.clear()
     plt.close(fig)
-
-
-# graph_maker_list_bar([250000, 20000, 15000, 100, 50], ["GR", "UK", "NL", "US", "PT"], ["Greece", "United Kingdom", "Netherlands", "United States of America", "Portugal"], 103948573850124857)

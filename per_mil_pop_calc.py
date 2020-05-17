@@ -8,11 +8,6 @@ def per_mil_calculator(name, cases):
 
     pop_data = list(filter(lambda find_pop: find_pop["Country"] in name, data))
 
-    # print(pop_data)
-
     per_mil_pop = (cases*1000000)/pop_data[0]["Population"]
 
     return round(per_mil_pop, 1)
-
-
-# print(per_mil_calculator("Greece", 2534))
