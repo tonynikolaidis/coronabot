@@ -5,9 +5,12 @@ Alternatively, you can compare how each country is fairing by entering two or mo
 
 Available commands:
 
- - `.stats`: provides the global statistics.
- - `.stats <country-name/code>`: provides the statistics for a single country. Example: `.stats us`
- - `.stats <country-1> <country-2> ... <country-6>`: compares cases or deaths per million population of up to six countries. Example: `.stats uk us es`
+ - `.stats`: provides the global statistics. <br>
+   ![world_stats](https://i.imgur.com/BkeBlTO.png)
+ - `.stats <country-name/code>`: provides the statistics for a single country. Example: `.stats us` <br>
+   ![single_country](https://i.imgur.com/z8bI9k0.png)
+ - `.stats <country-1> <country-2> ... <country-6>`: compares cases or deaths per million population of up to six countries. Example: `.stats uk us it` <br>
+   ![single_country](https://i.imgur.com/sht2R3q.png)
  - `.list`: replies with a direct message listing all available countries with their codes.
  - `.help`: replies with a list of available commands and their usage.
  - `.info`: replies with information about the bot.
