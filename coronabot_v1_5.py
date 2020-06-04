@@ -3,6 +3,8 @@ import logging
 
 from datetime import date
 from datetime import datetime
+import time
+import threading
 
 import discord
 from discord.ext import commands
@@ -17,9 +19,18 @@ logging.basicConfig(level=logging.INFO)
 bot = commands.Bot(command_prefix=".")
 bot.remove_command("help")
 
-url_sum = "https://api.covid19api.com/summary"
-response_sum = requests.get(url_sum)
-data_sum = response_sum.json()
+wait_seconds = 43200
+
+
+def renew_stats(wait_time):
+    url_sum = "https://api.covid19api.com/summary"
+    response_sum = requests.get(url_sum)
+    ds = response_sum.json()
+
+    threading.Timer(wait_time, renew_stats).start()
+
+    return ds
+
 
 url_country_list = "https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9f2119654b29ede6e45b8/data_json.json"
 response_country_data = requests.get(url_country_list)
@@ -851,6 +862,8 @@ def stats_calc(cases, deaths, recovered):
 
 async def make_stats_embed(ctx, entries, graph_file_name):
     remove_messages()
+
+    data_sum = renew_stats(wait_seconds)
 
     the_date = date.today()
     the_date_formatted = the_date.strftime("%B %d, %Y")
